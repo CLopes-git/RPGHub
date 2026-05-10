@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Georgia, serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0d0b12, #1e1411);
+  color: #e8d7b5;
+  min-height: 100vh;
+}
+
+.topbar {
+  background: #2a1611;
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 2px solid #8b5a2b;
+}
+
+.topbar h1 {
+  color: #d4a373;
+}
+
+.menu, .user {
+  font-size: 20px;
+}
+
+.title {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.title h2 {
+  font-size: 2rem;
+  color: #f2d8a7;
+}
+
+.dashboard {
+  width: 90%;
+  margin: auto;
+}
+
+.cards {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 240px;
+  background: #1c1715;
+  border: 2px solid #8b5a2b;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 20px rgba(212,163,115,.4);
+}
+
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #c6b79d;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+button {
+  background: #6b2f1f;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+button:hover {
+  background: #8f4028;
+}
+
+.bottom-area {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.summary, .create-card {
+  background: #1c1715;
+  padding: 30px;
+  border-radius: 14px;
+  border: 2px solid #8b5a2b;
+  width: 300px;
+}
+
+.NEW {
+  font-size: 60px;
+  text-align: center;
+  margin-bottom: 15px;
+}

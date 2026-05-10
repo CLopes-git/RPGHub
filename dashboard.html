@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPGHub - Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="menu">☰</div>
+  <h1>RPGHub</h1>
+  <div class="user">Caio2026</div>
+</header>
+
+<section class="title">
+  <h2>Selecione uma Ficha</h2>
+</section>
+
+<main class="dashboard">
+
+  <section class="cards" id="cards-container"></section>
+
+  <section class="bottom-area">
+
+    <div class="summary">
+      <h3>Resumo das Fichas</h3>
+      <p>Fichas criadas: <span id="total"></span></p>
+      <p>Nível médio: <span id="media"></span></p>
+      <p>Última sessão: Hoje</p>
+    </div>
+
+    <div class="create-card">
+      <div class="new">NEW</div>
+      <h3>Criar Nova Ficha</h3>
+      <button onclick="criarFicha()">Criar</button>
+    </div>
+
+  </section>
+
+</main>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
