@@ -11,33 +11,354 @@
 <header class="topbar">
   <button onclick="voltar()">← Dashboard</button>
   <h1>Ficha do Personagem</h1>
+  <div class="topbar-actions">
+    <span id="modo-badge" class="modo-badge">Visualização</span>
+    <button id="btn-modo" onclick="alternarModo()">Editar</button>
+    <button id="btn-salvar" onclick="salvar()" class="btn-salvar" style="display:none">Salvar</button>
+  </div>
 </header>
 
-<main class="container">
+<main class="ficha-container">
 
-  <section class="perfil">
-    <img src="" alt="Personagem">
-    <h2 id="nome">Sabedoria</h2>
-    <p id="classe">Guerreiro Humano</p>
-    <p>Nível <span id="nivel">5</span></p>
+  <!-- ===== INFORMAÇÕES BÁSICAS ===== -->
+  <section class="info-basica">
+    <div class="nome-box">
+      <input type="text" id="nome" placeholder="Nome do Personagem" class="nome-input">
+      <label>Nome do Personagem</label>
+    </div>
+    <div class="info-grid">
+      <div class="info-field">
+        <input type="text" id="classe" placeholder="Guerreiro">
+        <label>Classe</label>
+      </div>
+      <div class="info-field info-field--small">
+        <input type="number" id="nivel" value="1" min="1" max="20" oninput="atualizarDerivados()">
+        <label>Nível</label>
+      </div>
+      <div class="info-field">
+        <input type="text" id="raca" placeholder="Humano">
+        <label>Raça</label>
+      </div>
+      <div class="info-field">
+        <input type="text" id="antecedente" placeholder="Soldado">
+        <label>Antecedente</label>
+      </div>
+      <div class="info-field">
+        <input type="text" id="alinhamento" placeholder="Leal Neutro">
+        <label>Alinhamento</label>
+      </div>
+      <div class="info-field">
+        <input type="number" id="xp" value="0" min="0">
+        <label>Experiência (XP)</label>
+      </div>
+    </div>
   </section>
 
-  <section class="atributos">
-    <h3>Atributos</h3>
+  <!-- ===== CONTEÚDO PRINCIPAL (2 colunas) ===== -->
+  <div class="main-cols">
 
-    <div class="grid">
-      <label>Força <input type="number" id="forca" value="15"></label>
-      <label>Destreza <input type="number" id="destreza" value="12"></label>
-      <label>Constituição <input type="number" id="constituicao" value="14"></label>
-      <label>Inteligência <input type="number" id="inteligencia" value="10"></label>
-      <label>Sabedoria <input type="number" id="sabedoria" value="13"></label>
-      <label>Carisma <input type="number" id="carisma" value="8"></label>
+    <!-- ===== COLUNA ESQUERDA: Stats ===== -->
+    <div class="col-esquerda">
+
+      <!-- Imagem do Personagem -->
+      <div class="secao-box imagem-box">
+        <div class="imagem-container" id="imagem-container" onclick="clicarUpload()" title="Clique para adicionar imagem">
+          <img id="char-img" src="" alt="Personagem" style="display:none">
+          <div id="img-placeholder" class="img-placeholder">
+            <span class="img-icon">⚔</span>
+            <span class="img-hint">Adicionar Imagem</span>
+          </div>
+          <div class="img-overlay">Alterar</div>
+        </div>
+        <input type="file" id="img-upload" accept="image/*" style="display:none" onchange="carregarImagem(event)">
+      </div>
+
+      <!-- Inspiração e Bônus de Proficiência -->
+      <div class="secao-box insp-prof-box">
+        <div class="insp-field">
+          <input type="checkbox" id="inspiracao">
+          <label for="inspiracao">Inspiração</label>
+        </div>
+        <div class="separador-v"></div>
+        <div class="prof-field">
+          <span class="big-number" id="prof-bonus-display">+2</span>
+          <label>Bônus de Proficiência</label>
+        </div>
+      </div>
+
+      <!-- Atributos -->
+      <div class="secao-box">
+        <h4 class="secao-titulo">Atributos</h4>
+        <div class="atributos-lista">
+          <div class="atributo-box">
+            <span class="attr-label">FOR</span>
+            <span class="attr-name">Força</span>
+            <span class="attr-mod" id="mod-forca">+0</span>
+            <input type="number" id="forca" value="10" min="1" max="30" oninput="atualizarDerivados()">
+          </div>
+          <div class="atributo-box">
+            <span class="attr-label">DES</span>
+            <span class="attr-name">Destreza</span>
+            <span class="attr-mod" id="mod-destreza">+0</span>
+            <input type="number" id="destreza" value="10" min="1" max="30" oninput="atualizarDerivados()">
+          </div>
+          <div class="atributo-box">
+            <span class="attr-label">CON</span>
+            <span class="attr-name">Constituição</span>
+            <span class="attr-mod" id="mod-constituicao">+0</span>
+            <input type="number" id="constituicao" value="10" min="1" max="30" oninput="atualizarDerivados()">
+          </div>
+          <div class="atributo-box">
+            <span class="attr-label">INT</span>
+            <span class="attr-name">Inteligência</span>
+            <span class="attr-mod" id="mod-inteligencia">+0</span>
+            <input type="number" id="inteligencia" value="10" min="1" max="30" oninput="atualizarDerivados()">
+          </div>
+          <div class="atributo-box">
+            <span class="attr-label">SAB</span>
+            <span class="attr-name">Sabedoria</span>
+            <span class="attr-mod" id="mod-sabedoria">+0</span>
+            <input type="number" id="sabedoria" value="10" min="1" max="30" oninput="atualizarDerivados()">
+          </div>
+          <div class="atributo-box">
+            <span class="attr-label">CAR</span>
+            <span class="attr-name">Carisma</span>
+            <span class="attr-mod" id="mod-carisma">+0</span>
+            <input type="number" id="carisma" value="10" min="1" max="30" oninput="atualizarDerivados()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Testes de Resistência -->
+      <div class="secao-box">
+        <h4 class="secao-titulo">Testes de Resistência</h4>
+        <div id="saving-throws" class="check-list"></div>
+      </div>
+
+      <!-- Perícias -->
+      <div class="secao-box">
+        <h4 class="secao-titulo">Perícias</h4>
+        <div id="pericias-lista" class="check-list"></div>
+      </div>
+
+      <!-- Percepção Passiva -->
+      <div class="secao-box percepcao-passiva-box">
+        <span class="big-number" id="percepcao-passiva">10</span>
+        <label>Percepção Passiva</label>
+      </div>
+
+      <!-- Proficiências e Idiomas -->
+      <div class="secao-box">
+        <h4 class="secao-titulo">Proficiências e Idiomas</h4>
+        <div class="textarea-field">
+          <label>Proficiências</label>
+          <textarea id="proficiencias-texto" rows="4" placeholder="Armaduras leves, espadas, arcos..."></textarea>
+        </div>
+        <div class="textarea-field">
+          <label>Idiomas</label>
+          <textarea id="idiomas" rows="3" placeholder="Comum, Élfico, Anão..."></textarea>
+        </div>
+      </div>
+
     </div>
 
-    <button onclick="salvar()">Salvar Alterações</button>
+    <!-- ===== COLUNA DIREITA: Combate + Detalhes ===== -->
+    <div class="col-direita">
+
+      <!-- Combate -->
+      <div class="secao-box">
+        <h4 class="secao-titulo">Combate</h4>
+        <div class="combate-row">
+          <div class="combate-item">
+            <input type="number" id="ca" value="10">
+            <label>Classe de Armadura</label>
+          </div>
+          <div class="combate-item">
+            <span class="big-number" id="iniciativa-display">+0</span>
+            <label>Iniciativa</label>
+          </div>
+          <div class="combate-item">
+            <input type="number" id="deslocamento" value="9">
+            <label>Deslocamento (m)</label>
+          </div>
+        </div>
+        <div class="hp-row">
+          <div class="hp-item">
+            <input type="number" id="hp-max" value="0">
+            <label>HP Máximo</label>
+          </div>
+          <div class="hp-item">
+            <input type="number" id="hp-atual" value="0">
+            <label>HP Atual</label>
+          </div>
+          <div class="hp-item">
+            <input type="number" id="hp-temp" value="0">
+            <label>HP Temporário</label>
+          </div>
+        </div>
+
+        <div class="dvida-morte-row">
+
+          <!-- Dados de Vida -->
+          <div class="dvida-box">
+            <span class="secao-titulo-inline">Dados de Vida</span>
+            <div class="dvida-controls">
+              <select id="dado-vida-tipo">
+                <option value="d6">d6</option>
+                <option value="d8" selected>d8</option>
+                <option value="d10">d10</option>
+                <option value="d12">d12</option>
+              </select>
+              <div class="dvida-stat">
+                <input type="number" id="dado-vida-atual" value="1" min="0">
+                <label>Restantes</label>
+              </div>
+              <div class="dvida-stat">
+                <span class="dvida-total" id="dado-vida-total">1</span>
+                <label>Total</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testes de Morte -->
+          <div class="morte-box">
+            <span class="secao-titulo-inline">Testes de Morte</span>
+            <div class="morte-linha">
+              <span class="morte-label sucesso-label">Sucessos</span>
+              <div class="morte-bubbles">
+                <input type="checkbox" class="morte-check sucesso" id="ms1">
+                <input type="checkbox" class="morte-check sucesso" id="ms2">
+                <input type="checkbox" class="morte-check sucesso" id="ms3">
+              </div>
+            </div>
+            <div class="morte-linha">
+              <span class="morte-label falha-label">Falhas</span>
+              <div class="morte-bubbles">
+                <input type="checkbox" class="morte-check falha" id="mf1">
+                <input type="checkbox" class="morte-check falha" id="mf2">
+                <input type="checkbox" class="morte-check falha" id="mf3">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Ataques -->
+      <div class="secao-box">
+        <h4 class="secao-titulo">Ataques</h4>
+        <table class="ataques-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Bônus de Ataque</th>
+              <th>Dano / Tipo</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="ataques-tbody"></tbody>
+        </table>
+        <button class="btn-add" onclick="adicionarAtaque()">+ Adicionar Ataque</button>
+      </div>
+
+      <!-- Personalidade -->
+      <div class="secao-box">
+        <h4 class="secao-titulo">Personalidade</h4>
+        <div class="personalidade-grid">
+          <div class="textarea-field">
+            <label>Traços de Personalidade</label>
+            <textarea id="tracos" rows="3" placeholder="Como você age e se comporta..."></textarea>
+          </div>
+          <div class="textarea-field">
+            <label>Ideais</label>
+            <textarea id="ideais" rows="3" placeholder="O que você acredita e valoriza..."></textarea>
+          </div>
+          <div class="textarea-field">
+            <label>Vínculos</label>
+            <textarea id="vinculos" rows="3" placeholder="Com quem ou o que você se importa..."></textarea>
+          </div>
+          <div class="textarea-field">
+            <label>Defeitos</label>
+            <textarea id="defeitos" rows="3" placeholder="Suas fraquezas e falhas..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipamento -->
+      <div class="secao-box">
+        <h4 class="secao-titulo">Equipamento</h4>
+        <div class="moedas-row">
+          <div class="moeda-item">
+            <input type="number" id="pc" value="0" min="0">
+            <label>PC</label>
+          </div>
+          <div class="moeda-item">
+            <input type="number" id="pe" value="0" min="0">
+            <label>PE</label>
+          </div>
+          <div class="moeda-item">
+            <input type="number" id="po" value="0" min="0">
+            <label>PO</label>
+          </div>
+          <div class="moeda-item">
+            <input type="number" id="pp" value="0" min="0">
+            <label>PP</label>
+          </div>
+          <div class="moeda-item">
+            <input type="number" id="pr" value="0" min="0">
+            <label>PR</label>
+          </div>
+        </div>
+        <div class="textarea-field" style="margin-top:12px">
+          <label>Itens</label>
+          <textarea id="equipamento-lista" rows="6" placeholder="Liste seus itens aqui..."></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== MAGIAS ===== -->
+  <section class="secao-box magia-section">
+    <h4 class="secao-titulo">Magias</h4>
+
+    <div class="magia-header">
+      <div class="magia-header-item">
+        <label>Habilidade de Conjuração</label>
+        <select id="magia-habilidade" oninput="atualizarDerivados()">
+          <option value="">— Nenhuma —</option>
+          <option value="inteligencia">Inteligência (INT)</option>
+          <option value="sabedoria">Sabedoria (SAB)</option>
+          <option value="carisma">Carisma (CAR)</option>
+        </select>
+      </div>
+      <div class="magia-header-item magia-header-stat">
+        <span class="big-number" id="magia-cd">—</span>
+        <label>CD de Resistência</label>
+      </div>
+      <div class="magia-header-item magia-header-stat">
+        <span class="big-number" id="magia-bonus">—</span>
+        <label>Bônus de Ataque de Magia</label>
+      </div>
+    </div>
+
+    <!-- Truques -->
+    <div class="magia-nivel-bloco">
+      <div class="magia-nivel-header">
+        <span class="magia-nivel-titulo">Truques <span class="magia-nivel-tag">Nível 0</span></span>
+      </div>
+      <div id="truques-lista" class="magia-lista"></div>
+      <button class="btn-add" onclick="adicionarTruque()">+ Adicionar Truque</button>
+    </div>
+
+    <!-- Níveis 1–9 -->
+    <div id="niveis-magia"></div>
+
   </section>
 
 </main>
+
+<div id="notificacao" class="notificacao" style="display:none"></div>
 
 <script src="fichas.js"></script>
 </body>
