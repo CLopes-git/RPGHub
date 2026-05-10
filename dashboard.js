@@ -50,11 +50,11 @@ const media = fichas.reduce((acc, f) => acc + f.nivel, 0) / fichas.length;
 document.getElementById("media").textContent = media.toFixed(1);
 
 function selecionar(nome) {
-  alert(`Abrindo ficha de ${nome}`);
+  window.location.href = "fichas.html";
 }
 
 function editar(nome) {
-  alert(`Editando ${nome}`);
+  window.location.href = "fichas.html";
 }
 
 function criarFicha() {

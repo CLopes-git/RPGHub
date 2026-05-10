@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPGHub - Ficha</title>
+  <link rel="stylesheet" href="fichas.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button onclick="voltar()">← Dashboard</button>
+  <h1>Ficha do Personagem</h1>
+</header>
+
+<main class="container">
+
+  <section class="perfil">
+    <img src="" alt="Personagem">
+    <h2 id="nome">Sabedoria</h2>
+    <p id="classe">Guerreiro Humano</p>
+    <p>Nível <span id="nivel">5</span></p>
+  </section>
+
+  <section class="atributos">
+    <h3>Atributos</h3>
+
+    <div class="grid">
+      <label>Força <input type="number" id="forca" value="15"></label>
+      <label>Destreza <input type="number" id="destreza" value="12"></label>
+      <label>Constituição <input type="number" id="constituicao" value="14"></label>
+      <label>Inteligência <input type="number" id="inteligencia" value="10"></label>
+      <label>Sabedoria <input type="number" id="sabedoria" value="13"></label>
+      <label>Carisma <input type="number" id="carisma" value="8"></label>
+    </div>
+
+    <button onclick="salvar()">Salvar Alterações</button>
+  </section>
+
+</main>
+
+<script src="fichas.js"></script>
+</body>
+</html>
