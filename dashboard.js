@@ -58,5 +58,5 @@ function editar(nome) {
 }
 
 function criarFicha() {
-  alert("Criar nova ficha");
+  window.location.href = "fichas.html";
 }
