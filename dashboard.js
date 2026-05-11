@@ -1,3 +1,5 @@
+// Fichas padrão para exemplificar a funcionalidade e dar um ponto de partida para os usuários. 
+// O código é a fonte verdadeira dos dados base, e o localStorage guarda apenas edições feitas pelo usuário em cima deles.
 const FICHAS_DEFAULT = [
   {
     id: 1,
